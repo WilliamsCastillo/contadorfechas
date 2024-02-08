@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contador Regresivo de Fechas</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #countdown {
+    font-size: 2em;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+<h1>Contador Regresivo de Fechas</h1>
+<p>Seleccione una fecha y hora para contar hacia atrás:</p>
+<input type="datetime-local" id="dateTimeInput">
+<button onclick="startCountdown()">Comenzar</button>
+<div id="countdown"></div>
+
+<script>
+  function startCountdown() {
+    var countDownDate = new Date(document.getElementById("dateTimeInput").value).getTime();
+    var x = setInterval(function() {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById("countdown").innerHTML = days + " días, " + hours + " horas, " + minutes + " minutos, " + seconds + " segundos";
+      
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "¡Fecha alcanzada!";
+      }
+    }, 1000);
+  }
+</script>
+</body>
+</html>
